@@ -11,12 +11,14 @@ import React from 'react';
 import type {Node} from 'react';
 import { Text } from 'react-native';
 import SplasSeceren from './SplasSeceren';
+import Login from './Login';
 // import {SplashScreen} from '../src/Screens/SplashScreen';
 
 
 const App: () => Node = () => {
     return (
-      <SplasSeceren/>
+      // <SplasSeceren/>
+      <Login />
   );
 };
 
