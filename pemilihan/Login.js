@@ -1,6 +1,8 @@
 /* eslint-disable */
+import axios from 'axios'
 import React,{useState} from 'react'
 import { StyleSheet,TextInput, Text, View,TouchableOpacity } from 'react-native'
+import qs from 'qs'; 
 
 
 
@@ -11,8 +13,38 @@ export default function Login() {
    const onPress =()=>{
       var  e = email.email;
       var  p =  password.password;
+      var url = "https://easysurvey.id/api/login/";
+      // console.log(e,p==undefined)
+      // return false
+      if(e==undefined || p==undefined){
+        alert("Mohon isi Email Dan Password")
+      }else{
+          var data = {
+            'username': e,
+            'password': p
+          }
+          // console.log(data)
+          data = qs.stringify(data)
+          // console.log(data)  
+    
+          axios.post(url, 
+              data
+          )
+          .then(function (e) {
+            var hasil = e.data;
+            if(hasil.status==0){
+              alert(hasil.message)
+            }else{
+              alert(hasil.message)
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-       console.log(e,p)
+      }
+    
+
    }
 
     // console.log(email,password)
