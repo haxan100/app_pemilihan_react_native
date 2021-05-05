@@ -4,7 +4,8 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import axios from 'axios'
 import qs from 'qs'; 
-export default function Home() {
+
+export default function OTP({ navigation }) {
 const [satu, setSatu] = useState()
 const [dua, setDua] = useState()
 const [tiga, setTiga] = useState()
@@ -87,6 +88,10 @@ const resend =()=>{
   
 
  }
+ const Login = ()=>{
+  () => navigation.navigate('Home')
+  console.log("d")
+ }
 
 
 
@@ -129,7 +134,10 @@ const resend =()=>{
 
             <TouchableOpacity style={styles.verif} onPress={verif}>
                 <Text style={styles.textVerif}>Verifikasi</Text>
-            </TouchableOpacity>            
+            </TouchableOpacity> 
+            <TouchableOpacity style={styles.verif} onPress={Login}>
+                <Text style={styles.textVerif}>Halaman Login</Text>
+            </TouchableOpacity>                
         </View>
     )
 }

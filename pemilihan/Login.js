@@ -8,10 +8,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-export default function Login() {
+export default function Login({navigation}) {
 
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
+   const Regis = ({navigation})=>{
+    console.log("wddew")
+    console.log(navigation)
+    // navigation.navigate('Register')
+   }
 
   const getData = async () => {
     try {
@@ -19,9 +24,11 @@ export default function Login() {
       console.log("Data Ada? =>", jsonValue)
       var parse = JSON.parse(jsonValue);
       if(!parse){
-        alert("Belum login!")
+        // alert("Belum login!")
+        
       }else{
-        alert("Sudah login!")
+        // alert("Sudah login!")
+        navigation.navigate('Home')
 
       }
       return jsonValue != null ? JSON.parse(jsonValue) : null;
@@ -32,11 +39,12 @@ export default function Login() {
     }
   }
 
+
+
+  
+
   useEffect(() => {
     getData();
-    console.log(
-      "wddwwdw"
-    )
 
   }, []);
 
@@ -126,6 +134,8 @@ export default function Login() {
                 }
               }
               storeData(value)
+              navigation.navigate('Home')
+
 
             }
           })
@@ -161,6 +171,9 @@ export default function Login() {
 
         <TouchableOpacity style = {styles.loginBtn} onPress={onPress}>
            <Text style = {styles.loginText}> LOGIN </Text>
+         </TouchableOpacity>
+         <TouchableOpacity style = {styles.loginBtn} onPress={navigation.navigate('Register')}>
+           <Text style = {styles.loginText}> Register </Text>
          </TouchableOpacity>
 
         <TouchableOpacity>
