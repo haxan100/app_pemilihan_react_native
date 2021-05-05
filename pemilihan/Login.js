@@ -1,8 +1,10 @@
 /* eslint-disable */
 import axios from 'axios'
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { StyleSheet,TextInput, Text, View,TouchableOpacity } from 'react-native'
 import qs from 'qs'; 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -10,6 +12,36 @@ export default function Login() {
 
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
+
+const getData = async () => {
+  try {
+    const jsonValue = await AsyncStorage.getItem('okeeee')
+    console.log("Data Ada? =>", jsonValue)
+    var parse = JSON.parse(jsonValue);
+    if(!parse.isLogin){
+      alert("Belum login!")
+    }else{
+      alert("Sudah login!")
+
+    }
+    return jsonValue != null ? JSON.parse(jsonValue) : null;
+    console.log(jsonValue)
+
+  } catch(e) {
+    console.log(e)
+  }
+}
+
+  useEffect(() => {
+    getData();
+    console.log(
+      "wddwwdw"
+    )
+
+  }, []);
+
+
+
    const onPress =()=>{
       var  e = email.email;
       var  p =  password.password;
@@ -35,7 +67,31 @@ export default function Login() {
             if(hasil.status==0){
               alert(hasil.message)
             }else{
-              alert(hasil.message)
+              // alert(hasil.message) 
+              // console.log(hasil)
+              // berhasil login
+              const value = {
+                nama : hasil.data.nama_lengkap,
+                id_user : hasil.data.id_user,
+                is_agent : hasil.data.is_agent,
+                no_hp : hasil.data.no_hp,
+                isLogin:true
+              }
+              // console.log(value ,"ddddd")
+
+              const storeData = async (value) => {
+                try {
+                  const jsonValue = JSON.stringify(value)
+                  await AsyncStorage.setItem('okeeee', jsonValue)
+                  // console.log(jsonValue )
+                } catch (e) {
+                  console.log(e)
+                  // saving error
+                  alert(e)
+                }
+              }
+              storeData(value)
+
             }
           })
           .catch(function (error) {
