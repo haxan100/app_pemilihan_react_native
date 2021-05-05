@@ -1,8 +1,8 @@
 /* eslint-disable */
 import axios from 'axios'
+import qs from 'qs'; 
 import React,{useState,useEffect} from 'react'
 import { StyleSheet,TextInput, Text, View,TouchableOpacity,Alert  } from 'react-native'
-import qs from 'qs'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
