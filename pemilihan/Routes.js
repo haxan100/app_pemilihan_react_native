@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './Login';
 import OTP from './OTP';
-import Register from './register';
+import Register from './Register';
 import Home from './Home';
 
 const Stack = createStackNavigator();
