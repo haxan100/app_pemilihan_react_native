@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
-import { StyleSheet,TextInput, Text, View,TouchableOpacity } from 'react-native'
+import { StyleSheet,TextInput, Text, View,TouchableOpacity,Alert  } from 'react-native'
 import qs from 'qs'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -13,24 +13,24 @@ export default function Login() {
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
 
-const getData = async () => {
-  try {
-    const jsonValue = await AsyncStorage.getItem('okeeee')
-    console.log("Data Ada? =>", jsonValue)
-    var parse = JSON.parse(jsonValue);
-    if(!parse.isLogin){
-      alert("Belum login!")
-    }else{
-      alert("Sudah login!")
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('okeeee')
+      console.log("Data Ada? =>", jsonValue)
+      var parse = JSON.parse(jsonValue);
+      if(!parse){
+        alert("Belum login!")
+      }else{
+        alert("Sudah login!")
 
+      }
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      console.log(jsonValue)
+
+    } catch(e) {
+      console.log(e)
     }
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-    console.log(jsonValue)
-
-  } catch(e) {
-    console.log(e)
   }
-}
 
   useEffect(() => {
     getData();
@@ -40,6 +40,41 @@ const getData = async () => {
 
   }, []);
 
+    const showAlert = () =>
+    Alert.alert(
+      "Logout",
+      "Apakah Anda Akan Keluar ?",
+      [
+        {
+          text: "Batal",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { 
+          text: "OK", 
+          onPress: () => keluar() 
+      
+        }
+      ]
+    );
+
+  const keluar =  () =>{
+    
+    const removeValue = async () => {
+      try {
+        await AsyncStorage.removeItem('okeeee')
+
+      } catch(e) {
+        alert(e)
+      }
+    
+      console.log('Done.')
+    }
+    console.log("d ")
+    alert("Berhasil logout")
+    removeValue()
+
+  } 
 
 
    const onPress =()=>{
@@ -67,7 +102,7 @@ const getData = async () => {
             if(hasil.status==0){
               alert(hasil.message)
             }else{
-              // alert(hasil.message) 
+              alert(hasil.message) 
               // console.log(hasil)
               // berhasil login
               const value = {
@@ -129,7 +164,7 @@ const getData = async () => {
          </TouchableOpacity>
 
         <TouchableOpacity>
-          <Text style={styles.forgot}>Forgot Password?</Text>
+          <Text style={styles.forgot}  onPress={showAlert} >Logot SONTOEH</Text>
         </TouchableOpacity>
 
       </View>
